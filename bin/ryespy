@@ -213,6 +213,10 @@ OptionParser.new do |opts|
     options[:sftp_password] = o
   end
 
+  opts.on("--sftp-keys [Array of Key filenames]", Array, "Key filenames)") do |o|
+    options[:sftp_keys] = o
+  end
+
   opts.on("--sftp-dirs [/D1,/D2]", Array, "Directories /D1,/D2 (default: /)") do |o|
     options[:sftp_filters] = o
   end
@@ -326,6 +330,7 @@ end
     :sftp => [
       :host,
       :port,
+      :keys,
       :username,
       :password,
       :filters, # dirs

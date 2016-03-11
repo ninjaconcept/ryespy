@@ -80,7 +80,7 @@ module Ryespy
         files = {}
 
         @sftp.entries(".").each do |file|
-          mtime = @sftp.mtime(file).to_i
+          mtime = @sftp.mtime(file).to_i rescue nil # ignore non-file error
           size = @sftp.size(file) rescue nil # ignore non-file error
 
           if size # exclude directories

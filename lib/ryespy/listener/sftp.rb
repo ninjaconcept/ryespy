@@ -23,6 +23,11 @@ module Ryespy
         super(opts)
       end
 
+      def close
+        @client.close_channel unless @client.nil?
+        @client.session.close unless @client.session.nil?
+      end
+
       def check(dir)
         @logger.debug { "dir: #{dir}" }
         @logger.debug { "redis_key: #{redis_key(dir)}" }
@@ -61,6 +66,7 @@ module Ryespy
 
       def connect_service
         @sftp =  SFTPClient.new(@sftp_config[:host], @sftp_config[:port], @sftp_config[:username], @sftp_config[:password], @sftp_config[:keys])
+        @client = @sftp.client
       end
 
       def redis_key(dir)
